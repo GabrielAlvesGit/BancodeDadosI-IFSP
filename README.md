@@ -11,4 +11,5 @@ Inserir dados e Projeção de dados
 
 Criamos o modelo do Banco no BRModelo
 ![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/d3ab198a-bfc3-4d1f-a52f-218289b12716)
+
 ```
