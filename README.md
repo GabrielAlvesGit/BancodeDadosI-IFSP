@@ -4,8 +4,7 @@ Conteudo das aulas ministrada de Banco de Dados,
 
 
 
-<sub>
-  #### Na AULA29AGO2023, foi minitrada para
+<sub> #### Na AULA29AGO2023, foi minitrada para
 * Criar um Banco, 
 * Criar uma Tabela, 
 * Relacionar Primary Key, 
