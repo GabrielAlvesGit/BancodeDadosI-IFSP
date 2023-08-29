@@ -4,9 +4,9 @@ Conteudo das aulas ministrada de Banco de Dados,
 
 
 #### Na AULA29AGO2023, foi minitrada para
-Criar um Banco, 
-Criar uma Tabela, 
-Relacionar Primary Key, 
+-- Criar um Banco, 
+-- Criar uma Tabela, 
+--Relacionar Primary Key, 
 Inserir dados e Projeção de dados
 
 Criamos o modelo do Banco no BRModelo
