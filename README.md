@@ -7,7 +7,10 @@ Conteudo das aulas ministrada de Banco de Dados,
 * Criar um Banco, 
 * Criar uma Tabela, 
 * Relacionar Primary Key, 
-* Inserir dados e Projeção de dados 
+* Inserir dados e Projeção de dados
+* Execicio 30AGO2023 url: file:///C:/Users/Girls/Downloads/exercicio%20BD%20entregar%20nas%20aulas%20de%2029ago2023.pdf
+* ![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/c0a32224-13a6-4628-86dc-cca386a984be)
+
 
 Criamos o modelo do Banco no BRModelo
 ![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/d3ab198a-bfc3-4d1f-a52f-218289b12716)
@@ -204,68 +207,4 @@ CodDepartamento != 2 or salario < 1000
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
 
-
-CREATE DATABASE BD23AGO2023
-
-USE BD23AGO2023 
-CREATE TABLE Fornecedor
-(
-    Cod_Fornecedor   int            not null,
-    Desc_Fornecedor  CHAR(60)          not null,
-    Rua_Forn         CHAR(60)          not null, 
-    Numero_Forn      char(4)          not null,
-    Bairro_Forn      char(60)          not null,     
-    CEP_Forn         char(9)          not null,  
-    Cidade_Forn      char(60)          not null,  
-    UF_Forn          char(2)          not null, 
-    primary key(Cod_Fornecedor)     
-)
-
-CREATE TABLE Telefone
-(
-    Cod_Telefone    int            not null,
-    Telefone       CHAR(60)        not null,
-    Cod_Fornecedor INT,
-    primary key(Cod_Telefone),
-    foreign key(Cod_Fornecedor) references Fornecedor(Cod_Fornecedor)--não tem vírgula
-)
-
-
-CREATE TABLE Produto
-(
-    Cod_Prod      int               not null,
-    Desc_Produto  CHAR(60)          not null,
-    Preco_Produto decimal(6,3)      not null,
-    Quant_Produto DECIMAL(2)            not null,
-    primary key(Cod_Prod) 
-)
-
-
-CREATE TABLE Empregado
-(
-    Cod_Empregado      int            not null,
-    Nome_Empregado     CHAR(60)          not null,
-    CPF_Empregado      CHAR(14)          not null,
-    Rua_Empregado      CHAR(60)          not null,
-    Numero_Empregado   DECIMAL(4)          not null,
-    Bairro_Empregado   CHAR(60)          not null,
-    Cep_Empregado      CHAR(9)          not null,
-    Cidade_Empregado   char(60)          not null,
-    UF_Empregado       decimal(2)          not null,
-
-    primary key(Cod_Empregado) 
-)
-
-CREATE TABLE Prod_Venda
-(
-    Cod_Vend             int            not null,
-    Quantidade_Produto   decimal(60)          not null,
-    Comissao_Venda_Emp   decimal(14)          not null,
-
-    Cod_Prod      int, 
-    Cod_Empregado      int      
-    primary key(Cod_Vend ),
-    foreign key(Cod_Prod) references Produto(Cod_Prod),
-    foreign key(Cod_Empregado) references Empregado(Cod_Empregado)
-)
 
