@@ -9,7 +9,7 @@ Conteudo das aulas ministrada de Banco de Dados,
 * Relacionar Primary Key, 
 * Inserir dados e Projeção de dados
 * Execicio 30AGO2023 url: file:///C:/Users/Girls/Downloads/exercicio%20BD%20entregar%20nas%20aulas%20de%2029ago2023.pdf
-* ![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/c0a32224-13a6-4628-86dc-cca386a984be)
+ ![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/c0a32224-13a6-4628-86dc-cca386a984be)
 
 
 Criamos o modelo do Banco no BRModelo
