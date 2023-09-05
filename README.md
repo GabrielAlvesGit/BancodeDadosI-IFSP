@@ -218,7 +218,7 @@ ________________________________________________________________________________
 * consultando todas as colunas da tabela
 Select * from authors
  ```
-  Consultando colunas específicas de uma Tabela
+ -- Consultando colunas específicas de uma Tabela
 Select au_id, au_fname, au_lname
 from authors
 -- Consultando colunas com alias
