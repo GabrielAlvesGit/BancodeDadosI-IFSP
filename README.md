@@ -215,9 +215,9 @@ ________________________________________________________________________________
 * Drop tabela(Deletar),
 * Projeção de coluna (select '*' Nome da tabela) vai consultar todas as colunas,
 * Seleção vai consultar alguma coluna especifica :
--- consultando todas as colunas da tabela
+* consultando todas as colunas da tabela
 Select * from authors
--- Consultando colunas específicas de uma Tabela
+* Consultando colunas específicas de uma Tabela
 Select au_id, au_fname, au_lname
 from authors
 -- Consultando colunas com alias
@@ -230,6 +230,7 @@ where state='CA'
 -- Manipulando expressões
 select price Preço , (price * 1.1) "Preço com 10% de aumento", title
 from titles
+
 
 * Execicio 30AGO2023 url: file:///C:/Users/Girls/Downloads/exercicio%20BD%20entregar%20nas%20aulas%20de%2029ago2023.pdf
 
