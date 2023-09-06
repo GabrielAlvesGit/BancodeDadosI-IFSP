@@ -231,7 +231,13 @@ where state='CA'
 -- Manipulando expressões
 select price Preço , (price * 1.1) "Preço com 10% de aumento", title
 from titles
+
+As funções SUM, AVG e COUNT(expr) permitem especificar também o operador DISTINCT, que
+indica para considerar apenas os valores distintos. Por exemplo, a tabela 'funcionarios' do banco
+de dados Exemplo contém informação sobre qual departamento este funcionário trabalha. Para
+saber quais os departamentos que têm ao menos um funcionario, execute o seguinte comando:
 ```
+
 
 * Execicio 30AGO2023 url: file:///C:/Users/Girls/Downloads/exercicio%20BD%20entregar%20nas%20aulas%20de%2029ago2023.pdf
 
