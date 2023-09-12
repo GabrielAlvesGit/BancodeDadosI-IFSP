@@ -318,7 +318,8 @@ nome = 'Loja Unidade São Paulo'
 )
 )
 
-Snapshot_2023-09-12_20-31-59.png
 
-**Snapshot_2023-09-12_20-31-59.png**
+
+![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/97795bab-a0eb-43cd-8e35-6329e4596d97)
+
 
