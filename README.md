@@ -320,3 +320,5 @@ nome = 'Loja Unidade São Paulo'
 
 Snapshot_2023-09-12_20-31-59.png
 
+**Snapshot_2023-09-12_20-31-59.png**
+
