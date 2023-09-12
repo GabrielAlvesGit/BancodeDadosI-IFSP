@@ -243,3 +243,80 @@ saber quais os departamentos que têm ao menos um funcionario, execute o seguint
 
 
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+#### Na  Aula11set2023 e Testeaula05set2023*  ,
+Consultas Avançadas
+1. Verificar quais vendedores possuem vendas realizadas.
+SELECT
+nome
+FROM
+tb_vendedor
+WHERE
+EXISTS (
+SELECT
+fk_vendedor
+FROM
+tb_venda
+WHERE
+fk_vendedor = pk_vendedor
+)
+
+2. Verificar quais vendedores não possuem vendas realizadas
+SELECT
+nome
+FROM
+tb_vendedor
+WHERE
+NOT EXISTS (
+SELECT
+fk_vendedor
+FROM
+tb_venda
+WHERE
+fk_vendedor = pk_vendedor
+)
+
+3. Verificar quais vendedores realizaram vendas para a Loja de São Paulo
+SELECT
+nome
+FROM
+tb_vendedor
+WHERE
+pk_vendedor IN (
+SELECT
+fk_vendedor
+FROM
+tb_venda
+WHERE
+fk_loja IN (
+SELECT
+pk_loja
+FROM
+tb_loja
+WHERE
+nome = 'Loja Unidade São Paulo'
+)
+)
+4. Verificar quais vendedores realizaram vendas mas não para a Loja de São Paulo
+SELECT
+nome
+FROM
+tb_vendedor
+WHERE
+pk_vendedor IN (
+SELECT
+fk_vendedor
+FROM
+tb_venda
+WHERE
+fk_loja NOT IN (
+SELECT
+pk_loja
+FROM
+tb_loja
+WHERE
+nome = 'Loja Unidade São Paulo'
+)
+)
+
+Snapshot_2023-09-12_20-31-59.png
+
