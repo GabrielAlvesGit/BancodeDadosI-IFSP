@@ -1,3 +1,8 @@
+![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/0609e8d5-8ce5-492c-9077-f7b3733aaed0)
+![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/4d0b0105-4a8d-475f-af71-430c3ea29a19)
+![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/ec13afd7-5605-4aba-a9f1-c5fbc5474061)
+![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/60067ca4-c0ba-4782-8ffa-bdb6e7196e56)
+![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/363dfb7f-8b96-46da-b195-4646a84ab4a9)
 # BancodeDadosI-IFSP
 Conteudo das aulas ministrada de Banco de Dados, 
 
@@ -325,7 +330,7 @@ nome = 'Loja Unidade São Paulo'
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
 Exercicio 11set2023
-file:///C:/Users/Gabriel/Desktop/Exercicio%2011set2023%20-%20Gabriel%20Josue%20de%20Jesus%20alves%20Viana.pdf
+
 -- a) consultando todas as colunas da tabela cliente
 SELECT * FROM tb_cliente
 
