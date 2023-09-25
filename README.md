@@ -325,7 +325,7 @@ nome = 'Loja Unidade São Paulo'
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
 Exercicio 11set2023
-
+file:///C:/Users/Gabriel/Desktop/Exercicio%2011set2023%20-%20Gabriel%20Josue%20de%20Jesus%20alves%20Viana.pdf
 -- a) consultando todas as colunas da tabela cliente
 SELECT * FROM tb_cliente
 
