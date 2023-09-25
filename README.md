@@ -322,4 +322,90 @@ nome = 'Loja Unidade São Paulo'
 
 ![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/97795bab-a0eb-43cd-8e35-6329e4596d97)
 
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+Exercicio 11set2023
+
+-- a) consultando todas as colunas da tabela cliente
+SELECT * FROM tb_cliente
+
+--  b) Consultando colunas específicas da tabela cliente como pk_cliente e nome
+SELECT pk_cliente, nome from tb_cliente
+
+-- c) Consultando colunas com alias (apelido): pk_cliente como código do cliente e nome como nome completo
+SELECT  pk_cliente AS "código do cliente",  nome AS "nome completo"
+FROM tb_cliente;
+
+--d) Consultando com Condições: retornar dados da tabela cliente, mas somente para os nomes que NÃO sejam
+-- maiores que Maria Rocha
+-- Manipulando expressões: um comando SELECT pode retornar nas colunas de resultado uma coluna da tabela,
+-- ou um valor calculado. Por exemplo, a tabela tb_produto contem pk_produto, nome e quantidade. 
+SELECT nome state
+FROM tb_cliente
+WHERE 'Maria Rocha' > nome;
+
+
+--e) Retorne a quantidade_estoque com o alias Estoque, quantidade_estoque * 1.1 com o alias Estoque com 10%
+-- de aumento, nome com o alias Nome do produto
+SELECT quantidade_estoque AS "Estoque", quantidade_estoque * 1.1 AS "Estoque com 10% de aumento",
+nome as "Nome do produto" FROM tb_produto
+
+--f) Na tabela tb_venda, retorne o valor_total, arredonde valor_total com duas casas decimais e use o
+-- alias Valor Total com 2 casas decimais , fk_verndedor com o alias Código do vendedor
+SELECT ROUND(valor_total, 2) AS "Valor Total com 2 casas decimais", fk_vendedor AS "Código do vendedor"
+FROM tb_venda;
+
+
+--g) Na tabela tb_produto, retorne pk_produto com o alias Código e nome com o alias Nome do produto,
+-- para quantidade_estoque igual ou superior a 10:
+SELECT  pk_produto AS "Código", nome AS "Nome do produto" FROM tb_produto
+WHERE quantidade_estoque >= '10'
+
+--h) Na tabela tb_produto, retorne pk_produto com o alias Código e nome com o alias Nome do produto,
+-- quantidade_estoque com o alias Estoque, para quantidade_estoque que NÃO esteja entre 5 e 10
+SELECT pk_produto AS "Código",  nome AS "Nome do produto" , quantidade_estoque AS "Estoque" 
+FROM tb_produto
+WHERE quantidade_estoque < 5 OR quantidade_estoque > 10;
+
+-- i) retornar os dados de tb_vendedor: pk_vendedor e nome, para pk_vendedor que esteja no conjunto de dados
+--2,4,6,8, 10
+SELECT pk_vendedor, nome FROM tb_vendedor
+WHERE pk_vendedor IN (1,4,6,8,10)
+
+--j) retornar todos os vendedores cujos nomes comecem com A
+SELECT nome FROM tb_vendedor WHERE nome LIKE 'A%'
+
+--k) retornar todos os vendedores cujos nomes NãO comecem com A
+SELECT nome FROM tb_vendedor WHERE nome NOT LIKE 'A%'
+
+--l) retornar todos os vendedores cujos nomes tenham a letra E em qualquer parte
+SELECT nome FROM tb_vendedor WHERE nome LIKE '%E%'
+
+ -- m) Juntando várias condições da tabela tb_produto: retornar pk_produto, nome, quantidade_estoque. Mas somente
+-- para nome que comece com F ou pk_produto que seja igual a 2 e ainda para quantidade_estoque maior que 50
+SELECT pk_produto, nome, quantidade_estoque FROM tb_produto
+WHERE nome LIKE 'F%' OR pk_produto = 2 AND quantidade_estoque > 50
+
+--n) retorne o total de clientes cadastrados
+SELECT COUNT(*) AS "Total de Clientes"
+FROM tb_cliente;
+
+--o) usando a cláusula distinct - exibir a quantidade de lojas que emitiram nota fiscal
+SELECT COUNT(DISTINCT fk_loja) AS "Quantidade de Lojas que Emitiram Nota Fiscal"
+FROM tb_NotaFiscal;
+
+--p) a partir de tb_notafiscal, exiba a quantidade de notas fiscais com o alias Quantidade de NF e exiba também
+-- a coluna fk_loja. Agrupe os dados pela fk_loja
+SELECT fk_loja,  COUNT(*) AS "Quantidade de NF"
+FROM tb_notafiscal
+GROUP BY fk_loja;
+
+--q) Listar nome e quantidade de vendas por cliente, agrupando pelo nome do cliente e ordenar a lista pelo nome do
+-- cliente em ordem decrescente
+SELECT c.nome AS "Nome do Cliente", COUNT(v.pk_venda) AS "Quantidade de Vendas"
+FROM tb_cliente c
+LEFT JOIN tb_venda v ON c.pk_cliente = v.fk_cliente
+GROUP BY c.nome
+ORDER BY
+    "Nome do Cliente" DESC;
 
