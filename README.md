@@ -414,3 +414,35 @@ GROUP BY c.nome
 ORDER BY
     "Nome do Cliente" DESC;
 
+    ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+####  Exercício 26set2023*
+1 – Recupere todos os clientes que foram atendidos nas vendas por vendedores da Loja Unidade Minas Gerais. 
+
+2 – Para cada produto existente diga quais vendas foram realizadas e quantos itens foram pedidos.
+
+3 – Para cada produto mostre as notas fiscais de venda para os itens que corresponderem aos seus produtos.
+
+4 – Agrupe todos os vendedores e suas vendas
+
+5 – Para cada vendedor mostre quantas vendas foram realizadas.
+
+6 – Com base nas tabelas abaixo, execute o que se pede em seguida:
+
+6.1 - Desenvolva um Banco de Dados, insira as duas tabelas e os registros 
+acima;
+
+6.2 - Crie uma consulta, usando inner join, que retorne todos os nomes cargos ocupados, os nomes dos funcionários, bem como todos os 
+salários de funcionários que desempenham algum cargo;
+
+6.3 - Crie uma nova consulta, usando where, que retorne todos os nomes cargos ocupados, os nomes dos funcionários, bem como todos os salários de funcionários que desempenham algum cargo; 
+
+6.4 - Faça uma consulta, usando left join, que retorne todos os nomes cargos ocupados, todos os dados dos funcionários, bem como todos os salários de funcionários que desempenham algum cargo;
+
+6.6 - Mostre os cargos que não possuem funcionários cadastrados; 
+
+6.7 - Faça uma atualização, usando update e inner join e retorne todos os dados de funcionário, acrescentando uma coluna reajuste e salário reajustado, concedendo um reajuste de 5% somente para aqueles com salários menores que R$ 4.000,00
+Obs: Essa última não conseguir fazer pois estava dando erro, 
+
+
+
+
