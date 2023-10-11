@@ -447,7 +447,6 @@ ________________________________________________________________________________
 
 Exercicio 10-10-2023- Gabriel Josue
 
-[Uploading AtividadeAvaliativa09262023.tx
 A)
 CREATE TABLE Departamento(
 	codDep int PRIMARY KEY,
