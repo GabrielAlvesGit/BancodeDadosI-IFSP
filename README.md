@@ -1,4 +1,4 @@
-![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/0609e8d5-8ce5-492c-9077-f7b3733aaed0)
+[AtividadeAvaliativa09262023.txt](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/files/12863099/AtividadeAvaliativa09262023.txt)![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/0609e8d5-8ce5-492c-9077-f7b3733aaed0)
 ![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/4d0b0105-4a8d-475f-af71-430c3ea29a19)
 ![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/ec13afd7-5605-4aba-a9f1-c5fbc5474061)
 ![image](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/60067ca4-c0ba-4782-8ffa-bdb6e7196e56)
@@ -443,6 +443,102 @@ salários de funcionários que desempenham algum cargo;
 6.7 - Faça uma atualização, usando update e inner join e retorne todos os dados de funcionário, acrescentando uma coluna reajuste e salário reajustado, concedendo um reajuste de 5% somente para aqueles com salários menores que R$ 4.000,00
 Obs: Essa última não conseguir fazer pois estava dando erro, 
 
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+[Uploading AtividadeAvaliativa09262023.tx
+A)
+CREATE TABLE Departamento(
+	codDep int PRIMARY KEY,
+  	descricao varchar(50)
+) 
+
+CREATE TABLE Empregado (
+	codEmp int PRIMARY KEY,
+  	nome varchar(50),
+  	salario float,
+  	idade int,
+  	codDep int,
+  	FOREIGN key(codDep) REFERENCES Departamento(codDep)
+)
+
+CREATE TABLE Projeto(
+	codProj char PRIMARY KEY,
+  	descricao varchar(50)
+)
+
+CREATE TABLE ProjetoEmpregado(
+	codProj char,
+  	codEmp int,
+  	dataIn varchar(10),
+  	dataFi varchar(10)
+  	FOREIGN KEY(codEmp) REFERENCES Empregado(codEmp),
+	FOREIGN KEY(codProj) REFERENCES Projeto(codProj),
+)
+
+B)
+INSERT INTO Departamento
+VALUES(001, 'Pesquisa');
+INSERT INTO Departamento
+VALUES(002, 'Desenvolvimento');
+
+INSERT into Empregado
+VALUES (200, 'Pedro', 3000.00, 45, 001);
+INSERT into Empregado
+VALUES (201, 'Paulo', 2200.00, 43, 001);
+INSERT into Empregado
+VALUES (202, 'Maria', 2500.00, 38, 001);
+INSERT into Empregado
+VALUES (203, 'Ana', 1800.00, 25, 002);
+
+INSERT INTO Projeto
+VALUES ('A','AATOM')
+INSERT INTO Projeto
+VALUES ('B','DW espaço-temporal')
+
+INSERT into ProjetoEmpregado
+VALUES ('A', 200, '01/01/2007', 'atual');
+INSERT into ProjetoEmpregado
+VALUES ('A', 201, '01/01/2007', 'atual');
+INSERT into ProjetoEmpregado
+VALUES ('A', 202, '01/02/2006', '18/02/2010');
+INSERT into ProjetoEmpregado
+VALUES ('B', 203, '15/02/2008', '15/02/2010');
+
+C)
+SELECT * from Empregado
+WHERE salario > 2000.00 
+and idade > 40;
+
+D)
+SELECT EM.* from Empregado EM
+JOIN Departamento DP on EM.codDep = DP.codDep
+WHERE DP.descricao Like 'Pesquisa';
+
+E)
+SELECT EM.nome, EM.idade, DP.descricao from Empregado EM
+JOIN Departamento DP on EM.codDep = DP.codDep
+WHERE EM.idade < 40;
+
+F)
+SELECT EM.nome, DP.descricao from Empregado EM
+JOIN Departamento DP on EM.codDep = DP.codDep
+JOIN ProjetoEmpregado PJE on EM.codEmp = PJE.codEmp
+WHERE PJE.datain > '01/01/2007'
+
+G)
+SELECT EM.nome from Empregado EM
+JOIN ProjetoEmpregado PJE on EM.codEmp = PJE.codEmp
+JOIN Projeto PJ ON PJ.codProj = PJE.codProj
+WHERE PJ.descricao LIKE 'AATOM';
+
+H)
+SELECT DP.descricao, EM.nome, EM.salario from Empregado EM
+JOIN Departamento DP on EM.codDep = DP.codDep
+GROUP BY DP.descricao, EM.nome, EM.salario;t…]()
+![Snapshot_2023-10-10_21-33-32](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/57d46c5c-16ba-4725-bf88-7b1de5282f40)
+
+
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
 
 
