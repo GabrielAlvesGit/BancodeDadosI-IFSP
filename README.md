@@ -540,6 +540,464 @@ GROUP BY DP.descricao, EM.nome, EM.salario;t…]()
 
 
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+CREATE DATABASE bd_vendas;
+USE bd_vendas;
+CREATE TABLE tb_cliente (
+pk_cliente int PRIMARY KEY IDENTITY(0,1),
+nome varchar(255) NOT NULL,
+cpf varchar(11) NOT NULL
+)
+;
+CREATE TABLE tb_vendedor (
+pk_vendedor int PRIMARY KEY IDENTITY(0,1),
+nome varchar(255) NOT NULL
+)
+;
+CREATE TABLE tb_produto (
+pk_produto int PRIMARY KEY IDENTITY(0,1),
+nome varchar(255) NOT NULL,
+quantidade_estoque int NOT NULL
+)
+;
+CREATE TABLE tb_loja (
+pk_loja int PRIMARY KEY IDENTITY(0,1),
+nome varchar(255) NOT NULL,
+cnpj varchar(14) NOT NULL
+)
+;
+CREATE TABLE tb_venda (
+pk_venda int PRIMARY KEY IDENTITY(0,1),
+percentual_desconto float,
+data_venda datetime NOT NULL,
+fk_loja int REFERENCES tb_loja(pk_loja),
+fk_vendedor int REFERENCES tb_vendedor(pk_vendedor),
+fk_cliente int REFERENCES tb_cliente(pk_cliente),
+valor_total float,
+)
+;
+CREATE TABLE tb_NotaFiscal (
+pk_notafiscal int PRIMARY KEY IDENTITY(0,1),
+fk_loja int NOT NULL,
+fk_venda int
+)
+;
+CREATE TABLE tb_itens (
+pk_item int PRIMARY KEY IDENTITY(0,1),
+fk_venda int,
+fk_produto int
+)
+;
+INSERT INTO tb_produto VALUES ('keyboard',20);
+INSERT INTO tb_produto VALUES ('monitor',50);
+INSERT INTO tb_produto VALUES ('mouse',100);
+INSERT INTO tb_produto VALUES ('mouse pad',200);
+INSERT INTO tb_produto VALUES ('mouse wireless',50);
+INSERT INTO tb_produto VALUES ('pen drive 2GB',200);
+INSERT INTO tb_produto VALUES ('pen drive 8GB',200);
+INSERT INTO tb_produto VALUES ('pen drive 16GB',200);
+INSERT INTO tb_cliente VALUES ('Joao Pedro Neves','11122233300');
+INSERT INTO tb_cliente VALUES ('Joao Botelho Alves','11122233301');
+INSERT INTO tb_cliente VALUES ('Maria da Silva Soares','11122233302');
+INSERT INTO tb_cliente VALUES ('Ana Maria Rocha','11122233303');
+INSERT INTO tb_cliente VALUES ('Cristina Maria Ana Silva','11122233304');
+INSERT INTO tb_cliente VALUES ('Carlos Augusto Vieira','11122233305');
+INSERT INTO tb_cliente VALUES ('Marcelo Lopes Vieira','11122233306');
+INSERT INTO tb_cliente VALUES ('Joao Jose da Silva','11122233307');
+INSERT INTO tb_cliente VALUES ('Carlos Magno Monteiro','11122233308');
+INSERT INTO tb_cliente VALUES ('Jose Maria da Silva','11122233309');
+INSERT INTO tb_cliente VALUES ('Marta Vieira Nunes','11122233310');
+INSERT INTO tb_cliente VALUES ('Carla Carolina Mendes','11122233311');
+INSERT INTO tb_cliente VALUES ('Daiana Moreira Silva','11122233312');
+INSERT INTO tb_vendedor VALUES ('Daniel Andres Oliveira');
+INSERT INTO tb_vendedor VALUES ('Marcos Cunha');
+INSERT INTO tb_vendedor VALUES ('Andreia Olivia Marta');
+INSERT INTO tb_vendedor VALUES ('Carlos Dias');
+INSERT INTO tb_vendedor VALUES ('Pedro Pedreira');
+INSERT INTO tb_vendedor VALUES ('GUSTAVO MOTTA');
+INSERT INTO tb_vendedor VALUES ('ADILSON EVANDRO');
+INSERT INTO tb_loja VALUES ('Loja Unidade Minas Gerais','11111111110');
+INSERT INTO tb_loja VALUES ('Loja Unidade Sгo Paulo','11111111111');
+INSERT INTO tb_loja VALUES ('Loja Unidade Rio de Janeiro','11111111112');
+INSERT INTO tb_loja VALUES ('Loja Unidade Epнrito Santo','11111111113');
+INSERT INTO tb_venda VALUES (3.5,convert(datetime,'18-06-12 10:34:09 PM',5),1,1,0,10)
+INSERT INTO tb_venda VALUES (1.5,convert(datetime,'15-06-12 10:34:09 PM',5),2,2,1,20)
+INSERT INTO tb_venda VALUES (2.5,convert(datetime,'13-06-12 10:34:09 PM',5),0,3,2,30)
+INSERT INTO tb_venda VALUES (1.5,convert(datetime,'12-06-12 10:34:09 PM',5),1,4,3,40)
+INSERT INTO tb_venda VALUES (1.5,convert(datetime,'15-06-12 10:34:09 PM',5),1,0,4,50)
+INSERT INTO tb_venda VALUES (1.5,convert(datetime,'19-06-12 10:34:09 PM',5),1,1,5,60)
+INSERT INTO tb_venda VALUES (1.5,convert(datetime,'20-06-12 10:34:09 PM',5),2,2,6,70)
+INSERT INTO tb_venda VALUES (2.5,convert(datetime,'18-07-12 10:34:09 PM',5),2,3,7,80)
+INSERT INTO tb_venda VALUES (2.5,convert(datetime,'11-07-12 10:34:09 PM',5),2,4,8,90)
+INSERT INTO tb_venda VALUES (2.5,convert(datetime,'10-07-12 10:34:09 PM',5),0,0,9,10)
+INSERT INTO tb_venda VALUES (3.5,convert(datetime,'28-07-12 10:34:09 PM',5),0,1,1,20)
+INSERT INTO tb_venda VALUES (3.5,convert(datetime,'1-05-13 10:34:09 PM',5),0,1,2,30)
+INSERT INTO tb_venda VALUES (2.5,convert(datetime,'8-05-13 10:34:09 PM',5),1,1,2,40)
+INSERT INTO tb_venda VALUES (3.5,convert(datetime,'12-05-13 10:34:09 PM',5),2,2,3,50)
+INSERT INTO tb_venda VALUES (13.5,convert(datetime,'18-05-13 10:34:09 PM',5),0,2,3,60)
+INSERT INTO tb_venda VALUES (3.5,convert(datetime,'28-05-13 10:34:09 PM',5),1,2,5,70)
+INSERT INTO tb_venda VALUES (23.5,convert(datetime,'19-08-13 10:34:09 PM',5),2,3,5,80)
+INSERT INTO tb_venda VALUES (33.5,convert(datetime,'20-08-13 10:34:09 PM',5),0,3,5,90)
+INSERT INTO tb_venda VALUES (43.5,convert(datetime,'21-09-13 10:34:09 PM',5),1,4,7,10)
+INSERT INTO tb_venda VALUES (53.5,convert(datetime,'18-10-13 10:34:09 PM',5),2,4,7,20)
+INSERT INTO tb_venda VALUES (63.5,convert(datetime,'11-11-13 10:34:09 PM',5),0,4,7,30)
+INSERT INTO tb_itens VALUES (0,1)
+INSERT INTO tb_itens VALUES (1,1)
+INSERT INTO tb_itens VALUES (2,1)
+INSERT INTO tb_itens VALUES (3,1)
+INSERT INTO tb_itens VALUES (4,1)
+INSERT INTO tb_itens VALUES (5,1)
+INSERT INTO tb_itens VALUES (6,1)
+INSERT INTO tb_itens VALUES (7,1)
+INSERT INTO tb_itens VALUES (8,1)
+INSERT INTO tb_itens VALUES (9,1)
+INSERT INTO tb_itens VALUES (10,1)
+INSERT INTO tb_itens VALUES (11,1)
+INSERT INTO tb_itens VALUES (12,1)
+INSERT INTO tb_itens VALUES (13,1)
+INSERT INTO tb_itens VALUES (14,1)
+INSERT INTO tb_itens VALUES (15,1)
+INSERT INTO tb_itens VALUES (16,1)
+INSERT INTO tb_itens VALUES (17,1)
+INSERT INTO tb_itens VALUES (18,1)
+INSERT INTO tb_itens VALUES (19,1)
+INSERT INTO tb_itens VALUES (20,1)
+INSERT INTO tb_itens VALUES (21,1)
+INSERT INTO tb_itens VALUES (0,2)
+INSERT INTO tb_itens VALUES (1,2)
+INSERT INTO tb_itens VALUES (2,2)
+INSERT INTO tb_itens VALUES (3,2)
+INSERT INTO tb_itens VALUES (4,2)
+INSERT INTO tb_itens VALUES (5,2)
+INSERT INTO tb_itens VALUES (6,2)
+INSERT INTO tb_itens VALUES (7,2)
+INSERT INTO tb_itens VALUES (8,2)
+INSERT INTO tb_itens VALUES (9,2)
+INSERT INTO tb_itens VALUES (10,2)
+INSERT INTO tb_itens VALUES (11,2)
+INSERT INTO tb_itens VALUES (12,2)
+INSERT INTO tb_itens VALUES (13,2)
+INSERT INTO tb_itens VALUES (14,2)
+INSERT INTO tb_itens VALUES (15,2)
+INSERT INTO tb_itens VALUES (16,2)
+INSERT INTO tb_itens VALUES (17,2)
+INSERT INTO tb_itens VALUES (18,2)
+INSERT INTO tb_itens VALUES (19,2)
+INSERT INTO tb_itens VALUES (20,2)
+INSERT INTO tb_itens VALUES (21,2)
+INSERT INTO tb_itens VALUES (0,3)
+INSERT INTO tb_itens VALUES (1,4)
+INSERT INTO tb_itens VALUES (2,5)
+INSERT INTO tb_itens VALUES (3,6)
+INSERT INTO tb_itens VALUES (4,7)
+INSERT INTO tb_itens VALUES (5,0)
+INSERT INTO tb_itens VALUES (6,1)
+INSERT INTO tb_itens VALUES (7,2)
+INSERT INTO tb_itens VALUES (8,3)
+INSERT INTO tb_itens VALUES (9,4)
+INSERT INTO tb_itens VALUES (10,5)
+INSERT INTO tb_itens VALUES (11,6)
+INSERT INTO tb_itens VALUES (12,7)
+INSERT INTO tb_itens VALUES (13,0)
+INSERT INTO tb_itens VALUES (14,1)
+INSERT INTO tb_itens VALUES (15,2)
+INSERT INTO tb_itens VALUES (16,3)
+INSERT INTO tb_itens VALUES (17,4)
+INSERT INTO tb_itens VALUES (18,5)
+INSERT INTO tb_itens VALUES (19,6)
+INSERT INTO tb_itens VALUES (20,7)
+INSERT INTO tb_itens VALUES (21,0)
+INSERT INTO tb_itens VALUES (0,1)
+INSERT INTO tb_itens VALUES (1,2)
+INSERT INTO tb_itens VALUES (2,3)
+INSERT INTO tb_itens VALUES (3,4)
+INSERT INTO tb_itens VALUES (4,5)
+INSERT INTO tb_itens VALUES (5,6)
+INSERT INTO tb_itens VALUES (6,7)
+INSERT INTO tb_itens VALUES (7,0)
+INSERT INTO tb_itens VALUES (8,1)
+INSERT INTO tb_itens VALUES (9,2)
+INSERT INTO tb_itens VALUES (10,3)
+INSERT INTO tb_itens VALUES (11,4)
+INSERT INTO tb_itens VALUES (12,5)
+INSERT INTO tb_itens VALUES (13,6)
+INSERT INTO tb_itens VALUES (14,7)
+INSERT INTO tb_itens VALUES (15,0)
+INSERT INTO tb_itens VALUES (16,1)
+INSERT INTO tb_itens VALUES (17,2)
+INSERT INTO tb_itens VALUES (18,3)
+INSERT INTO tb_itens VALUES (19,4)
+INSERT INTO tb_itens VALUES (20,5)
+INSERT INTO tb_itens VALUES (21,6)
+INSERT INTO tb_itens VALUES (0,7)
+INSERT INTO tb_itens VALUES (1,0)
+INSERT INTO tb_itens VALUES (2,1)
+INSERT INTO tb_itens VALUES (3,2)
+INSERT INTO tb_itens VALUES (4,3)
+INSERT INTO tb_itens VALUES (5,4)
+INSERT INTO tb_itens VALUES (6,5)
+INSERT INTO tb_itens VALUES (7,6)
+INSERT INTO tb_itens VALUES (8,7)
+INSERT INTO tb_itens VALUES (9,0)
+INSERT INTO tb_itens VALUES (10,1)
+INSERT INTO tb_itens VALUES (11,2)
+INSERT INTO tb_itens VALUES (12,3)
+INSERT INTO tb_itens VALUES (13,4)
+INSERT INTO tb_itens VALUES (14,5)
+INSERT INTO tb_itens VALUES (15,3)
+INSERT INTO tb_itens VALUES (16,6)
+INSERT INTO tb_itens VALUES (17,7)
+INSERT INTO tb_itens VALUES (18,0)
+INSERT INTO tb_itens VALUES (19,1)
+INSERT INTO tb_itens VALUES (20,4)
+INSERT INTO tb_itens VALUES (21,5)
+INSERT INTO tb_notafiscal VALUES (0,0)
+INSERT INTO tb_notafiscal VALUES (0,1)
+INSERT INTO tb_notafiscal VALUES (2,2)
+INSERT INTO tb_notafiscal VALUES (2,3)
+INSERT INTO tb_notafiscal VALUES (0,4)
+INSERT INTO tb_notafiscal VALUES (2,5)
+INSERT INTO tb_notafiscal VALUES (0,6)
+INSERT INTO tb_notafiscal VALUES (1,7)
+INSERT INTO tb_notafiscal VALUES (2,8)
+INSERT INTO tb_notafiscal VALUES (0,9)
+INSERT INTO tb_notafiscal VALUES (2,10)
+INSERT INTO tb_notafiscal VALUES (2,11)
+INSERT INTO tb_notafiscal VALUES (0,12)
+INSERT INTO tb_notafiscal VALUES (2,13)
+INSERT INTO tb_notafiscal VALUES (2,14)
+INSERT INTO tb_notafiscal VALUES (0,15)
+INSERT INTO tb_notafiscal VALUES (1,16)
+INSERT INTO tb_notafiscal VALUES (2,17)
+INSERT INTO tb_notafiscal VALUES (0,18)
+INSERT INTO tb_notafiscal VALUES (1,19)
+INSERT INTO tb_notafiscal VALUES (2,20)
+INSERT INTO tb_notafiscal VALUES (0,21)
+INSERT INTO tb_notafiscal VALUES (1,22)
+INSERT INTO tb_notafiscal VALUES (1,23)
+INSERT INTO tb_notafiscal VALUES (0,24)
+INSERT INTO tb_notafiscal VALUES (1,25)
+INSERT INTO tb_notafiscal VALUES (2,26)
+INSERT INTO tb_notafiscal VALUES (1,27)
+INSERT INTO tb_notafiscal VALUES (1,28)
+INSERT INTO tb_notafiscal VALUES (2,29)
+INSERT INTO tb_notafiscal VALUES (1,30)
+INSERT INTO tb_notafiscal VALUES (1,31)
+INSERT INTO tb_notafiscal VALUES (1,32)
+INSERT INTO tb_notafiscal VALUES (0,33)
+INSERT INTO tb_notafiscal VALUES (1,34)
+INSERT INTO tb_notafiscal VALUES (1,35)
+INSERT INTO tb_notafiscal VALUES (0,36)
+
+SELECT * from tb_cliente
+
+-- Construa a seguinte SP
+CREATE PROCEDURE sp_procedure_variavel_coluna AS
+DECLARE @cpf varchar(11)
+BEGIN
+SELECT @cpf = cpf FROM tb_cliente WHERE pk_cliente = 1
+print @cpf
+END
+
+-- Executar 
+EXEC  sp_procedure_variavel_coluna
+
+-- Construa a seguinte SP criando com um mesmo nome, mas com 1 
+CREATE PROCEDURE sp_procedure_variavel_coluna1 AS
+DECLARE @cpf varchar(11)
+BEGIN
+SELECT @cpf = cpf FROM tb_cliente WHERE pk_cliente != 1
+print @cpf
+END
+
+-- Executar 
+EXEC  sp_procedure_variavel_coluna1
+
+
+
+--  Stored Procedures 
+CREATE PROCEDURE sp_minha_procedure AS
+BEGIN
+SELECT 'HELLO WORLD!'
+END
+
+-- parвmetros ( São o nomes do cabeçalhos)
+CREATE PROCEDURE sp_minha_procedure@pk_cliente int) AS
+BEGIN
+SELECT * FROM tb_cliente WHERE pk_cliente = @pk_cliente
+END
+Para executar, faзa:
+EXEC sp_minha_procedure 1
+SP com vбrios parвmetros:
+CREATE PROCEDURE sp_minha_procedure(@pk_cliente int, @nome
+varchar(255)) AS
+BEGIN
+UPDATE tb_cliente SET nome = @nome WHERE pk_cliente = @pk_cliente
+END
+-- Para executar, faça:
+EXEC sp_minha_procedure 1
+
+-- Crindo  Procedure com IF
+CREATE PROCEDURE sp_procedure_if_UM(@pk_cliente int) AS
+BEGIN
+IF(@pk_cliente>10)
+BEGIN
+SELECT * FROM tb_cliente WHERE pk_cliente > 10
+END
+ELSE
+BEGIN
+SELECT * FROM tb_cliente WHERE pk_cliente < 10
+END
+END
+
+EXEC  sp_procedure_if_UM 6
+
+--  Stored Procedures 
+CREATE PROCEDURE sp_minha_procedure AS
+BEGIN
+SELECT 'HELLO WORLD!'
+END
+
+-- vai mostra o Hello Word
+EXEC sp_minha_procedure
+
+-- Deletar o Banco
+DROP PROCEDURE sp_minha_procedure
+
+CREATE PROCEDURE sp_procedure_com_variavel AS
+DECLARE @idade int,
+@nome varchar(4)
+BEGIN
+set @idade = 15
+set @nome = 'IFSP'
+print @idade
+print @nome
+END
+
+-- vai mostra o Hello Word
+EXEC sp_procedure_com_variavel
+-- exercicio: Faça uma SP que retorne a mйdia da quantidade em estoque de todos os produtos
+CREATE PROCEDURE sp_media_quantidade_produto_2 AS
+BEGIN
+SELECT AVG(quantidadeProduto) AS 'MEDIA' from produto 
+END
+
+
+EXEC sp_media_quantidade_produto_2
+
+------------------------------------------------------------------------------ FUNÇÃO -----------------------------------------------
+-- Exemplo de função escalar
+Create FUNCTION F_AreaTriangulo (@base smallint, @altura smallint)
+RETURNS int -- tipo de retorno
+AS
+BEGIN
+RETURN ((@base * @altura)/2) -- CALCULANDO A AREA DO TRIANGULO
+END
+
+-- Para executar a função
+SELECT dbo.F_AreaTriangulo(5,30) -- data bse owner
+SELECT dbo.F_AreaTriangulo(3,17)
+
+-- função escalar
+Create FUNCTION F_AreaCirculo (@raio int)
+RETURNS Bigint
+AS
+BEGIN
+DECLARE @area Bigint
+SET @area = PI() * POWER(@raio,2)
+RETURN @area
+END
+
+-- executar a função
+SELECT dbo. F_AreaCirculo (10)
+
+-- Comandos para criação das tabelas Funcionario e Regiao
+CREATE TABLE [Funcionario](
+[Cod_Func] [int] NOT NULL,
+[Nome_Func] [varchar](100) NULL,
+[Sexo_Func] [char](1) NULL,
+[Sal_Func] [float] NULL,
+[Data_Func] [datetime] NULL,
+[Num_Regiao] [int] NULL
+)
+CREATE TABLE [Regiao](
+[Num_Regiao] [int] NOT NULL,
+[Regiao] [varchar](50) NULL
+)
+
+-- Comandos para popular as duas tabelas
+insert into funcionario values(1,'Manda Chuva','M',5000,
+'1998-01-01 00:00:00.000',1)
+insert into funcionario values(2,'Chuchu','M',3000,
+'1999-01-01 00:00:00.000',1)
+insert into funcionario values(3,'Bacana','M',2000,
+'2000-01-01 00:00:00.000',2)
+insert into funcionario values(4,'Espeto','M',2500,
+'2001-01-01 00:00:00.000',2)
+insert into funcionario values(5,'Batatinha','F',4000,
+'2002-01-01 00:00:00.000',3)
+
+insert into Regiao values (1,'Norte')
+insert into Regiao values (2,'Sul')
+insert into Regiao values (3,'Leste')
+insert into Regiao values (4,'Oeste')
+
+-- Selecionar  tabela
+SELECT * FROM Funcionario
+
+-- Comandos para criação das tabelas Funcionario e Regiao
+
+Create FUNCTION F_DataCadastro (@data smallDatetime)
+RETURNS TABLE
+AS
+RETURN (SELECT * FROM dbo.Funcionario
+WHERE Data_Func = @data)
+
+-- executar a função
+SELECT * FROM F_DataCadastro('01/01/98')
+
+--Fazendo JOIN com o resultado da função F_DataCadastro
+Select F.*, Regiao.Regiao
+from F_DataCadastro('01/01/98') as F, Regiao
+where F.Num_Regiao = Regiao.Num_Regiao
+
+-- Comandos para criação das tabelas USuarios
+CREATE TABLE [dbo].[Usuario](
+[User_Name] [varchar](50) NULL,
+[Num_Regiao] [int] NULL
+)
+
+-- Comandos para popular as duas tabelas
+insert into usuario values ('george',1)
+insert into usuario values ('dbo',10)
+insert into usuario values ('ana',2)
+
+--  Comandos para criação das tabelas Funcionario e
+Create FUNCTION F_Func2 ( )
+RETURNS @Func Table ( Nome_Func varchar(100) not null,
+Sal_Func decimal(10,2) not null )
+AS
+BEGIN
+DECLARE @numreg tinyint
+SELECT @numreg = Num_Regiao FROM Usuario WHERE User_name = User
+IF @numreg IS NOT NULL AND @numreg <> 10
+INSERT @Func
+SELECT Nome_Func, Sal_Func FROM Funcionario WHERE
+Num_regiao = @numreg
+ELSE IF @numreg = 10
+INSERT @Func
+SELECT Nome_Func, Sal_Func FROM Funcionario
+RETURN
+END
+--Código que executa a função ***
+SELECT * FROM dbo.F_Func2( )
+
+-- Crie uma função que calcule o valor do delta
+-- de uma função do segundo grau
+CREATE FUNCTION f_delta ()
+
+
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
 
 
 
