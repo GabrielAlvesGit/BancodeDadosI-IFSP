@@ -997,6 +997,247 @@ CREATE FUNCTION f_delta ()
 
 
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Aula 24/10
+
+```
+CREATE DATABASE bd_trigger
+use bd_trigger
+
+CREATE TABLE tb_produto(
+    pro_cod int PRIMARY KEY IDENTITY(0,1),
+    pro_nome VARCHAR (50) not null,
+    pro_descricao VARCHAR (50) not null,
+    pro_valorpago float,
+    pro_valorvenda float,
+    pro_qtde int
+)
+
+CREATE TABLE tb_venda(
+    ven_cod int PRIMARY KEY IDENTITY,
+    ven_data DATE NOt NULL,
+    ven_nfiscal INT,
+    ven_total FLOAT,
+    ven_nparcelas INT,
+    ven_status VARCHAR (50) NOT NULL
+)
+
+CREATE TABLE tb_itensvenda(
+    itv_cod INT PRIMARY KEY IDENTITY (0,1),
+    itv_qtde INT,
+    itv_valor FLOAT,
+    fk_ven_cod INT REFERENCES tb_venda (ven_cod),
+    fk_pro_cod INT REFERENCES tb_produto(pro_cod)  
+)
+
+
+INSERT INTO tb_produto VALUES 
+(1,'Carrinho', 'Carrinho de controle remoto', 10.00, 10.00, 1)
+
+select * from tb_produto
+
+INSERT INTO tb_produto
+VALUES (1 ,'Carrinho de controle remoto', 'A fun remote control car', 10.00, 10.00, 1)
+
+DROP TABLE tb_produto
+-- The above line inserts a single row of data into the tb_produto table.
+
+SELECT * FROM tb_produto
+
+
+-- The above line inserts a single row of data into the tb_produto table.
+
+SELECT * FROM tb_produto
+
+
+------------- Continuidade da aula 
+
+create database bd_UF;
+use bd_UF;
+create table estado (id integer, nome varchar(20), sigla char(2));
+insert into estado (id, nome, sigla) values(1, 'Amazonas','AM');
+insert into estado (id, nome, sigla) values(2, 'Acre','AC');
+insert into estado (id, nome, sigla) values(3, 'Bahia','BA');
+insert into estado (id, nome, sigla) values(4, 'Paraná','PR');
+insert into estado (id, nome, sigla) values(5, 'Rio Grande do Sul','RS');
+insert into estado (id, nome, sigla) values(6, 'Santa Catarina','SC');
+insert into estado (id, nome, sigla) values(7, 'São Paulo','SP');
+insert into estado (id, nome, sigla) values(8, 'Rio de Janeiro','RJ');
+insert into estado (id, nome, sigla) values(9, 'Minas Gerais','MG');
+
+SELECT sigla,
+CASE 
+  WHEN sigla IN ('PR', 'RS', 'SC') THEN 'Sul'
+  WHEN sigla IN ('SP', 'RJ', 'ES', 'MG') THEN 'Sudeste'
+  WHEN sigla IN ('MT', 'MS', 'GO') THEN 'Centro-Oeste'
+  WHEN sigla IN ('BA','AL','SE','PB','PE','RN','CE','PI','MA') THEN 'Nordeste'
+  WHEN sigla IN ('AM', 'RR', 'AP', 'PA', 'TO', 'RO', 'AC') THEN 'Norte'
+ELSE ''
+END AS regiao
+FROM estado
+ORDER BY sigla;
+
+create table produto (
+idProduto int,
+nomeProduto varchar(50),
+precoProduto decimal(10,2),
+quantidadeProduto int);
+
+INSERT INTO produto (idProduto, nomeProduto, precoProduto, quantidadeProduto)
+VALUES (1, 'água mineral', 4.98, 120), (2, 'margarina', 5.98, 100),
+(3, 'pão de forma', 5.98, 50), (4, 'vinagre', 7.99, 75),
+(5, 'sabão em pó', 7.50, 108), (6, 'detergente', 3.98, 90),
+(7, 'vinho tinto', 189.90, 30), (8, 'macarrão espaguete', 7.90, 145),
+(9, 'molho de tomate', 2.99, 130), (10, 'arroz integral', 7.48, 45),
+(11, 'arroz branco', 23.90, 170);
+
+select * from produto
+
+exercicio: Faça uma SP que retorne a mйdia da quantidade em estoque de todos os produtos
+
+
+
+------ Continuidade da aula
+
+CREATE DATABASE bd_teste
+
+use bd_teste
+
+CREATE TABLE CAIXA (
+DATA DATETIME,
+SALDO_INICIAL DECIMAL(10,2),
+SALDO_FINAL DECIMAL(10,2) )
+INSERT INTO CAIXA
+VALUES (CONVERT(DATETIME, CONVERT(VARCHAR, GETDATE(), 100)), 100, 100)
+
+
+CREATE TABLE VENDAS (
+DATA DATETIME,
+CODIGO INT,
+VALOR DECIMAL(10,2) )
+
+go
+
+-- for - quando houver um insert ele vai disparar  geralemnte e data e hora
+CREATE TRIGGER TGR_VENDAS_AI
+ON VENDAS
+FOR INSERT
+AS
+BEGIN
+    DECLARE
+    @VALOR DECIMAL(10,2),
+    @DATA DATETIME
+    SELECT @DATA = DATA, @VALOR = VALOR FROM INSERTED
+    
+    UPDATE CAIXA SET SALDO_FINAL = SALDO_FINAL + @VALOR
+    WHERE DATA = @DATA
+END
+
+
+INSERT INTO VENDAS
+VALUES (CONVERT(DATETIME, CONVERT(VARCHAR, GETDATE(), 100)), 1, 10)
+
+SELECT * FROM VENDAS
+
+select * from CAIXA -– verificando o conteúdo da tabela CAIXA
+
+
+-- Trigger no delete na tabela vendas
+CREATE TRIGGER TGR_VENDAS_AD
+ON VENDAS
+FOR DELETE
+AS
+BEGIN
+    DECLARE
+    @VALOR DECIMAL(10,2),
+    @DATA DATETIME
+    SELECT @DATA = DATA, @VALOR = VALOR FROM DELETED
+    UPDATE CAIXA SET SALDO_FINAL = SALDO_FINAL - @VALOR
+    WHERE DATA = @DATA
+END
+
+
+
+
+CREATE TABLE CARGO
+(
+CARGOID INT IDENTITY(1,1),
+NOME VARCHAR(50),
+ATIVIDADES VARCHAR(100),
+DEPARTID INT
+)
+
+CREATE TRIGGER TR_INSERT_CARGO
+ON CARGO
+FOR INSERT
+AS
+BEGIN
+SELECT I.* FROM INSERTED I
+INNER JOIN CARGO C
+ON (I.CARGOID = C.CARGOID)
+END
+
+
+INSERT INTO CARGO (NOME, ATIVIDADES,DEPARTID)
+VALUES ('ESTAGIÁRIO DE TI', '', NULL);
+
+INSERT INTO CARGO (NOME, ATIVIDADES,DEPARTID)
+VALUES ('pROGRAMADOR jUNIOR', 'DESENVOLVER FRONT END', 12);
+
+SELECT * FROM CARGO
+
+
+GO
+-- CASO DE UPDATE 
+CREATE TRIGGER TR_UPDATE_CARGO
+ON CARGO
+FOR UPDATE
+AS
+BEGIN
+--ANTES DA ATUALIZAÇÃO
+SELECT D.* FROM DELETED D
+INNER JOIN CARGO C
+ON (D.CARGOID = C.CARGOID)
+--DEPOIS DA ATUALIZAÇÃO
+SELECT I.* FROM INSERTED I
+INNER JOIN CARGO C
+ON (I.CARGOID = C.CARGOID)
+END
+
+ SELECT * from cargo
+
+UPDATE CARGO
+SET ATIVIDADES = 'AUXILIAR OS PROCESSOS DOS ANALISTAS DE TI E ADQUIRIR EXPERIENCIA
+PROFISSIONAL', DEPARTID = 10
+WHERE CARGOID = 1
+
+GO
+
+
+CREATE TRIGGER TR_DELETE_CARGO
+ON CARGO
+FOR DELETE
+AS
+BEGIN
+--REGISTRO DELETADO
+PRINT 'REGISTRO EXCLUÍDO COM SUCESSO!!!'
+END
+
+DELETE FROM CARGO
+WHERE CARGOID = 2
+
+-- Verifique a tabela Cargo agora:
+select * from cargo
+
+
+
+
+
+
+
+```
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
 
 
 
