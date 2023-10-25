@@ -1233,9 +1233,438 @@ select * from cargo
 ![Snapshot_2023-10-24_22-25-03](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/3b4dc24f-e46d-43bc-b8aa-9e9477ea541c)
 
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Exercicio de PROCEDURE 
+```
+-- Para executar os exercícios abaixo, use o banco de dados da última aula bd_vendas:
+CREATE DATABASE bd_vendas;
+USE bd_vendas;
+
+DROP DATABASE bd_venda
+USE master;
+
+SELECT * FROM tb_cliente
+CREATE TABLE tb_cliente (
+pk_cliente int PRIMARY KEY IDENTITY(0,1),
+nome varchar(255) NOT NULL,
+cpf varchar(11) NOT NULL
+);
+CREATE TABLE tb_vendedor (
+pk_vendedor int PRIMARY KEY IDENTITY(0,1),
+nome varchar(255) NOT NULL
+);
+CREATE TABLE tb_produto (
+pk_produto int PRIMARY KEY IDENTITY(0,1),
+nome varchar(255) NOT NULL,
+quantidade_estoque int NOT NULL
+);
+CREATE TABLE tb_loja (
+pk_loja int PRIMARY KEY IDENTITY(0,1),
+nome varchar(255) NOT NULL,
+cnpj varchar(14) NOT NULL
+);
+CREATE TABLE tb_venda (
+pk_venda int PRIMARY KEY IDENTITY(0,1),
+percentual_desconto float,
+data_venda datetime NOT NULL,
+fk_loja int REFERENCES tb_loja(pk_loja),
+fk_vendedor int REFERENCES tb_vendedor(pk_vendedor),
+fk_cliente int REFERENCES tb_cliente(pk_cliente),
+valor_total float,
+);
+CREATE TABLE tb_NotaFiscal (
+pk_notafiscal int PRIMARY KEY IDENTITY(0,1),
+fk_loja int NOT NULL,
+fk_venda int
+);
+CREATE TABLE tb_itens (
+pk_item int PRIMARY KEY IDENTITY(0,1),
+fk_venda int,
+fk_produto int
+);
+
+INSERT INTO tb_produto VALUES ('keyboard',20);
+INSERT INTO tb_produto VALUES ('monitor',50);
+INSERT INTO tb_produto VALUES ('mouse',100);
+INSERT INTO tb_produto VALUES ('mouse pad',200);
+INSERT INTO tb_produto VALUES ('mouse wireless',50);
+INSERT INTO tb_produto VALUES ('pen drive 2GB',200);
+INSERT INTO tb_produto VALUES ('pen drive 8GB',200);
+INSERT INTO tb_produto VALUES ('pen drive 16GB',200);
+INSERT INTO tb_cliente VALUES ('Joao Pedro Neves','11122233300');
+INSERT INTO tb_cliente VALUES ('Joao Botelho Alves','11122233301');
+INSERT INTO tb_cliente VALUES ('Maria da Silva Soares','11122233302');
+INSERT INTO tb_cliente VALUES ('Ana Maria Rocha','11122233303');
+INSERT INTO tb_cliente VALUES ('Cristina Maria Ana Silva','11122233304');
+INSERT INTO tb_cliente VALUES ('Carlos Augusto Vieira','11122233305');
+INSERT INTO tb_cliente VALUES ('Marcelo Lopes Vieira','11122233306');
+INSERT INTO tb_cliente VALUES ('Joao Jose da Silva','11122233307');
+INSERT INTO tb_cliente VALUES ('Carlos Magno Monteiro','11122233308');
+INSERT INTO tb_cliente VALUES ('Jose Maria da Silva','11122233309');
+INSERT INTO tb_cliente VALUES ('Marta Vieira Nunes','11122233310');
+INSERT INTO tb_cliente VALUES ('Carla Carolina Mendes','11122233311');
+INSERT INTO tb_cliente VALUES ('Daiana Moreira Silva','11122233312');
+INSERT INTO tb_vendedor VALUES ('Daniel Oliveira');
+INSERT INTO tb_vendedor VALUES ('Marcos Cunha');
+INSERT INTO tb_vendedor VALUES ('Olivia Marta');
+INSERT INTO tb_vendedor VALUES ('Carlos Dias');
+INSERT INTO tb_vendedor VALUES ('Pedro Pedreira');
+INSERT INTO tb_vendedor VALUES ('GUSTAVO MOTTA');
+INSERT INTO tb_vendedor VALUES ('ADILSON EVANDRO');
+INSERT INTO tb_loja VALUES ('Loja Unidade Minas Gerais','11111111110');
+INSERT INTO tb_loja VALUES ('Loja Unidade São Paulo','11111111111');
+INSERT INTO tb_loja VALUES ('Loja Unidade Rio de Janeiro','11111111112');
+INSERT INTO tb_loja VALUES ('Loja Unidade Espirito Santo','11111111113');
+INSERT INTO tb_venda VALUES (3.5,convert(datetime,'18-06-12 10:34:09 PM',5),1,1,0,0)
+INSERT INTO tb_venda VALUES (1.5,convert(datetime,'15-06-12 10:34:09 PM',5),2,2,1,0)
+INSERT INTO tb_venda VALUES (2.5,convert(datetime,'13-06-12 10:34:09 PM',5),0,3,2,0)
+INSERT INTO tb_venda VALUES (1.5,convert(datetime,'12-06-12 10:34:09 PM',5),1,4,3,0)
+INSERT INTO tb_venda VALUES (1.5,convert(datetime,'15-06-12 10:34:09 PM',5),1,0,4,0)
+INSERT INTO tb_venda VALUES (1.5,convert(datetime,'19-06-12 10:34:09 PM',5),1,1,5,0)
+INSERT INTO tb_venda VALUES (1.5,convert(datetime,'20-06-12 10:34:09 PM',5),2,2,6,0)
+INSERT INTO tb_venda VALUES (2.5,convert(datetime,'18-07-12 10:34:09 PM',5),2,3,7,0)
+INSERT INTO tb_venda VALUES (2.5,convert(datetime,'11-07-12 10:34:09 PM',5),2,4,8,0)
+INSERT INTO tb_venda VALUES (2.5,convert(datetime,'10-07-12 10:34:09 PM',5),0,0,9,0)
+INSERT INTO tb_venda VALUES (3.5,convert(datetime,'28-07-12 10:34:09 PM',5),0,1,1,0)
+INSERT INTO tb_venda VALUES (3.5,convert(datetime,'1-05-13 10:34:09 PM',5),0,1,2,0)
+INSERT INTO tb_venda VALUES (2.5,convert(datetime,'8-05-13 10:34:09 PM',5),1,1,2,0)
+INSERT INTO tb_venda VALUES (3.5,convert(datetime,'12-05-13 10:34:09 PM',5),2,2,3,0)
+INSERT INTO tb_venda VALUES (13.5,convert(datetime,'18-05-13 10:34:09 PM',5),0,2,3,0)
+INSERT INTO tb_venda VALUES (3.5,convert(datetime,'28-05-13 10:34:09 PM',5),1,2,5,0)
+INSERT INTO tb_venda VALUES (23.5,convert(datetime,'19-08-13 10:34:09 PM',5),2,3,5,0)
+INSERT INTO tb_venda VALUES (33.5,convert(datetime,'20-08-13 10:34:09 PM',5),0,3,5,0)
+INSERT INTO tb_venda VALUES (43.5,convert(datetime,'21-09-13 10:34:09 PM',5),1,4,7,0)
+INSERT INTO tb_venda VALUES (53.5,convert(datetime,'18-10-13 10:34:09 PM',5),2,4,7,0)
+INSERT INTO tb_venda VALUES (63.5,convert(datetime,'11-11-13 10:34:09 PM',5),0,4,7,0)
+INSERT INTO tb_venda VALUES (44.5,convert(datetime,'21-09-13 10:34:09 PM',5),1,4,7,33.333)
+INSERT INTO tb_venda VALUES (55.5,convert(datetime,'18-10-13 10:34:09 PM',5),2,4,7,44.444)
+INSERT INTO tb_venda VALUES (66.5,convert(datetime,'11-11-13 10:34:09 PM',5),0,4,7,555.555)
+INSERT INTO tb_itens VALUES (0,1)
+INSERT INTO tb_itens VALUES (1,1)
+INSERT INTO tb_itens VALUES (2,1)
+INSERT INTO tb_itens VALUES (3,1)
+INSERT INTO tb_itens VALUES (4,1)
+INSERT INTO tb_itens VALUES (5,1)
+INSERT INTO tb_itens VALUES (6,1)
+INSERT INTO tb_itens VALUES (7,1)
+INSERT INTO tb_itens VALUES (8,1)
+INSERT INTO tb_itens VALUES (9,1)
+INSERT INTO tb_itens VALUES (10,1)
+INSERT INTO tb_itens VALUES (11,1)
+INSERT INTO tb_itens VALUES (12,1)
+INSERT INTO tb_itens VALUES (13,1)
+INSERT INTO tb_itens VALUES (14,1)
+INSERT INTO tb_itens VALUES (15,1)
+INSERT INTO tb_itens VALUES (16,1)
+INSERT INTO tb_itens VALUES (17,1)
+INSERT INTO tb_itens VALUES (18,1)
+INSERT INTO tb_itens VALUES (19,1)
+INSERT INTO tb_itens VALUES (20,1)
+INSERT INTO tb_itens VALUES (21,1)
+INSERT INTO tb_itens VALUES (0,2)
+INSERT INTO tb_itens VALUES (1,2)
+INSERT INTO tb_itens VALUES (2,2)
+INSERT INTO tb_itens VALUES (3,2)
+INSERT INTO tb_itens VALUES (4,2)
+INSERT INTO tb_itens VALUES (5,2)
+INSERT INTO tb_itens VALUES (6,2)
+INSERT INTO tb_itens VALUES (7,2)
+INSERT INTO tb_itens VALUES (8,2)
+INSERT INTO tb_itens VALUES (9,2)
+INSERT INTO tb_itens VALUES (10,2)
+INSERT INTO tb_itens VALUES (11,2)
+INSERT INTO tb_itens VALUES (12,2)
+INSERT INTO tb_itens VALUES (13,2)
+INSERT INTO tb_itens VALUES (14,2)
+INSERT INTO tb_itens VALUES (15,2)
+INSERT INTO tb_itens VALUES (16,2)
+INSERT INTO tb_itens VALUES (17,2)
+INSERT INTO tb_itens VALUES (18,2)
+INSERT INTO tb_itens VALUES (19,2)
+INSERT INTO tb_itens VALUES (20,2)
+INSERT INTO tb_itens VALUES (21,2)
+INSERT INTO tb_itens VALUES (0,3)
+INSERT INTO tb_itens VALUES (1,4)
+INSERT INTO tb_itens VALUES (2,5)
+INSERT INTO tb_itens VALUES (3,6)
+INSERT INTO tb_itens VALUES (4,7)
+INSERT INTO tb_itens VALUES (5,0)
+INSERT INTO tb_itens VALUES (6,1)
+INSERT INTO tb_itens VALUES (7,2)
+INSERT INTO tb_itens VALUES (8,3)
+INSERT INTO tb_itens VALUES (9,4)
+INSERT INTO tb_itens VALUES (10,5)
+INSERT INTO tb_itens VALUES (11,6)
+INSERT INTO tb_itens VALUES (12,7)
+INSERT INTO tb_itens VALUES (13,0)
+INSERT INTO tb_itens VALUES (14,1)
+INSERT INTO tb_itens VALUES (15,2)
+INSERT INTO tb_itens VALUES (16,3)
+INSERT INTO tb_itens VALUES (17,4)
+INSERT INTO tb_itens VALUES (18,5)
+INSERT INTO tb_itens VALUES (19,6)
+INSERT INTO tb_itens VALUES (20,7)
+INSERT INTO tb_itens VALUES (21,0)
+INSERT INTO tb_itens VALUES (0,1)
+INSERT INTO tb_itens VALUES (1,2)
+INSERT INTO tb_itens VALUES (2,3)
+INSERT INTO tb_itens VALUES (3,4)
+INSERT INTO tb_itens VALUES (4,5)
+INSERT INTO tb_itens VALUES (5,6)
+INSERT INTO tb_itens VALUES (6,7)
+INSERT INTO tb_itens VALUES (7,0)
+INSERT INTO tb_itens VALUES (8,1)
+INSERT INTO tb_itens VALUES (9,2)
+INSERT INTO tb_itens VALUES (10,3)
+INSERT INTO tb_itens VALUES (11,4)
+INSERT INTO tb_itens VALUES (12,5)
+INSERT INTO tb_itens VALUES (13,6)
+INSERT INTO tb_itens VALUES (14,7)
+INSERT INTO tb_itens VALUES (15,0)
+INSERT INTO tb_itens VALUES (16,1)
+INSERT INTO tb_itens VALUES (17,2)
+INSERT INTO tb_itens VALUES (18,3)
+INSERT INTO tb_itens VALUES (19,4)
+INSERT INTO tb_itens VALUES (20,5)
+INSERT INTO tb_itens VALUES (21,6)
+INSERT INTO tb_itens VALUES (0,7)
+INSERT INTO tb_itens VALUES (1,0)
+INSERT INTO tb_itens VALUES (2,1)
+INSERT INTO tb_itens VALUES (3,2)
+INSERT INTO tb_itens VALUES (4,3)
+INSERT INTO tb_itens VALUES (5,4)
+INSERT INTO tb_itens VALUES (6,5)
+INSERT INTO tb_itens VALUES (7,6)
+INSERT INTO tb_itens VALUES (8,7)
+INSERT INTO tb_itens VALUES (9,0)
+INSERT INTO tb_itens VALUES (10,1)
+INSERT INTO tb_itens VALUES (11,2)
+INSERT INTO tb_itens VALUES (12,3)
+INSERT INTO tb_itens VALUES (13,4)
+INSERT INTO tb_itens VALUES (14,5)
+INSERT INTO tb_itens VALUES (15,3)
+INSERT INTO tb_itens VALUES (16,6)
+INSERT INTO tb_itens VALUES (17,7)
+INSERT INTO tb_itens VALUES (18,0)
+INSERT INTO tb_itens VALUES (19,1)
+INSERT INTO tb_itens VALUES (20,4)
+INSERT INTO tb_itens VALUES (21,5)
+INSERT INTO tb_notafiscal VALUES (0,0)
+INSERT INTO tb_notafiscal VALUES (0,1)
+INSERT INTO tb_notafiscal VALUES (2,2)
+INSERT INTO tb_notafiscal VALUES (2,3)
+INSERT INTO tb_notafiscal VALUES (0,4)
+INSERT INTO tb_notafiscal VALUES (2,5)
+INSERT INTO tb_notafiscal VALUES (0,6)
+INSERT INTO tb_notafiscal VALUES (1,7)
+INSERT INTO tb_notafiscal VALUES (2,8)
+INSERT INTO tb_notafiscal VALUES (0,9)
+INSERT INTO tb_notafiscal VALUES (2,10)
+INSERT INTO tb_notafiscal VALUES (2,11)
+INSERT INTO tb_notafiscal VALUES (0,12)
+INSERT INTO tb_notafiscal VALUES (2,13)
+INSERT INTO tb_notafiscal VALUES (2,14)
+INSERT INTO tb_notafiscal VALUES (0,15)
+INSERT INTO tb_notafiscal VALUES (1,16)
+INSERT INTO tb_notafiscal VALUES (2,17)
+INSERT INTO tb_notafiscal VALUES (0,18)
+INSERT INTO tb_notafiscal VALUES (1,19)
+INSERT INTO tb_notafiscal VALUES (2,20)
+INSERT INTO tb_notafiscal VALUES (0,21)
+INSERT INTO tb_notafiscal VALUES (1,22)
+INSERT INTO tb_notafiscal VALUES (1,23)
+INSERT INTO tb_notafiscal VALUES (0,24)
+INSERT INTO tb_notafiscal VALUES (1,25)
+INSERT INTO tb_notafiscal VALUES (2,26)
+INSERT INTO tb_notafiscal VALUES (1,27)
+INSERT INTO tb_notafiscal VALUES (1,28)
+INSERT INTO tb_notafiscal VALUES (2,29)
+INSERT INTO tb_notafiscal VALUES (1,30)
+INSERT INTO tb_notafiscal VALUES (1,31)
+INSERT INTO tb_notafiscal VALUES (1,32)
+INSERT INTO tb_notafiscal VALUES (0,33)
+INSERT INTO tb_notafiscal VALUES (1,34)
+INSERT INTO tb_notafiscal VALUES (1,35)
+INSERT INTO tb_notafiscal VALUES (0,36)
 
 
 
+-- 1) Faça uma SP que retorne a média da quantidade em estoque de todos os produtos (resolvido)
+CREATE PROCEDURE sp_media_quantidade_prod AS
+BEGIN
+select avg(quantidade_estoque) as Media FROM tb_produto
+END
+
+EXEC sp_media_quantidade_prod
+
+go
+-- 2) Faça uma SP que retorne todos os vendedores que realizaram vendas cujo nome tenha em sua parte %dr% 
+-- Crie a stored procedure
+CREATE PROCEDURE sp_vendedores_vendas_partedr AS
+BEGIN
+ SELECT distinct(nome) FROM tb_vendedor  AS v
+INNER JOIN
+ tb_venda AS vd
+ON
+	v.pk_vendedor  = vd.fk_vendedor
+ where nome like '%dr%'
+END
+
+--  Executar o procedure tb_venda
+EXEC sp_vendedores_vendas_partedr
+
+-- Selecionar tabela tb_venda
+select * from tb_vendeda
+
+-- Deletar se for preciso
+DROP PROCEDURE sp_vendedores_vendas_partedr;
+
+-- USANDO go para tirar as linhas vermelhas
+GO
+-- 3) Faça uma SP que dado a PK de produto mostre quantas vendas foram realizadas para ele
+CREATE PROCEDURE sp_produto_quantidade_venda_realizada (@produto_pk int) AS
+BEGIN
+    SELECT COUNT(*) AS quantidade_vendas
+    FROM tb_itens i
+    WHERE i.fk_produto = @produto_pk;
+END
+
+-- Exemplo de uso da SP
+EXEC sp_produto_quantidade_venda_realizada @produto_pk = 1; 
+
+-- Se precisar excluir o Proceure
+DROP PROCEDURE sp_produto_quantidade_venda_realizada;
+
+-- Selecionando a tabela
+SELECT * FROM tb_venda
+
+-- Tirar a  linha vermelha
+GO
+-- 4) Faça uma SP que dado a PK de uma loja mostre a quantidade de vendas realizadas para ela
+CREATE PROCEDURE sp_pk_loja_quantidade_vendas (@fk_loja INT) AS
+BEGIN
+    SELECT COUNT(fk_loja) AS quantidades_de_venda_loja FROM tb_venda
+        WHERE fk_loja = @fk_loja
+END
+
+-- Execute a Procedure
+EXEC sp_pk_loja_quantidade_vendas 1
+
+-- Delete a Procedure se necessario
+DROP PROCEDURE sp_pk_loja_quantidade_vendas
+
+-- selecionando a tabela tb_venda
+SELECT * FROM tb_cliente
+
+-- Veja agora um exemplo de uso de uma função (udf) escalar:
+--CRIAÇÃO DA TABELA EXEMPLO
+CREATE TABLE TBL_ALUNO(
+COD_ALUNO SMALLINT IDENTITY NOT NULL,
+NOME_ALUNO VARCHAR(30) NOT NULL,
+NOTA1 TINYINT NOT NULL,
+NOTA2 TINYINT NOT NULL,
+NOTA3 TINYINT NOT NULL,
+NOTA4 TINYINT NOT NULL,
+CONSTRAINT PK_COD_ALUNO PRIMARY KEY (COD_ALUNO));
+
+--DADOS DA TABELA
+INSERT INTO TBL_ALUNO (NOME_ALUNO, NOTA1, NOTA2, NOTA3, NOTA4)
+VALUES
+('WILLIAM', 7.6, 7.4, 5.3, 6.9),
+('LEONARDO',5.3, 8.4, 5.3, 5.9),
+('ALANA',9.3, 6.4, 4.1, 5.7),
+('CAMILA',8.3, 5.4, 7.3, 6.9);
+
+GO
+--CRIAÇÃO DE UMA FUNÇÃO QUE RECEBE UM NOME DE ALUNO E RETORNA A MÉDIA DESTE ALUNO:
+CREATE FUNCTION F_notaMedia (@nome varchar(30))
+RETURNS REAL
+AS
+BEGIN
+ DECLARE @media REAL
+ SELECT @media = (nota1+nota2+nota3+nota4)/4.00
+ FROM tbl_aluno
+ WHERE nome_aluno = @nome
+ RETURN @media
+END
+
+--EXECUÇÃO DA FUNÇÃO
+SELECT dbo.F_notaMedia('Camila') as Média
+
+-- Com base nas tabelas abaixo, crie o que se pede:
+create table tbl_editora(
+id_editora int,
+nome_editora varchar(50),
+primary key(id_editora))
+
+insert into tbl_editora
+values (1,'ABC'), (2,'CEU AZUL'),(3,'FONTE')
+
+CREATE TABLE TBL_AUTOR(
+id_autor int,
+nome_autor varchar(50),
+id_editora int,
+primary key(id_autor),
+foreign key(id_editora) references tbl_editora(id_editora))
+insert into tbl_autor
+values (11,'Bill Gates',1),(22,'Steve Jobs',1),(33,'ELMASRI, Ramez',2)
+
+CREATE TABLE tbl_livro (
+id_livro int,
+nome_livro varchar(100),
+valor_livro decimal(10,2),
+id_editora int,
+id_autor int,
+primary key(id_livro),
+foreign key(id_editora) references tbl_editora(id_editora),
+foreign key(id_autor) references tbl_autor(id_autor))
+
+insert into tbl_livro
+values (111,'Como Ser Milionario',120.00,1,11),(222,'New Era',85.00,2,22),
+(333,'Banco de Dados', 98.00,3,33),(444,'Modelagem de Dados', 65.00,3,33)
 
 
+-- 5)Crie uma função que receba um valor de um livro e retorne os dados a seguir, para os livros que tenham
+-- valores maiores que o valor informado: Nome_Livro, Nome_autor, Nome_editora, Valor_livro – por
+-- exemplo, se for informado o valor de 70.00 o resultado deverá ser como a descrição abaixo:
+CREATE FUNCTION retorna_itens2 (@valor REAL)
+RETURNS Table
+AS
+RETURN(
+  SELECT L.Nome_livro,A.Nome_autor, E.Nome_editora, L.valor_livro
+  FROM tbl_livro as L
+  INNER JOIN TBL_AUTOR as A
+  ON L.id_autor = A.id_autor
+  INNER JOIN tbl_editora as E
+  ON L.id_editora = E.id_editora
+  WHERE L.valor_livro > @valor)
+
+SELECT Nome_Livro, Nome_autor,Nome_editora, Valor_livro
+FROM retorna_itens2 (50)
+
+--6) Crie uma função que receba a identificação do autor retorne os dados do livro e da editora. No entanto só
+-- podem retornar os dados que forem de livros e editoras que estejam relacionados ao autor
+
+CREATE FUNCTION F_DadosLivrosEditoraPorAutor (@idAutor INT)
+RETURNS TABLE
+AS
+RETURN
+(
+SELECT
+l.nome_livro AS Nome_Livro,
+e.nome_editora AS Nome_editora,
+l.valor_livro AS Valor_livro
+FROM tbl_livro l
+INNER JOIN tbl_editora e ON l.id_editora = e.id_editora
+WHERE l.id_autor = @idAutor
+)
+
+SELECT * FROM F_DadosLivrosEditoraPorAutor(33)
+
+```
+![Capturar](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/af404d35-d5e2-47d3-ad45-4ef3422f446b)
+
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+```
+```
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
