@@ -1232,6 +1232,7 @@ select * from cargo
 
 
 
+![Snapshot_2023-10-24_22-25-03](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/0240e332-3897-4ff9-b088-d7843ea3f5a2)
 
 
 ```
