@@ -1664,6 +1664,149 @@ SELECT * FROM F_DadosLivrosEditoraPorAutor(33)
 ![Capturar](https://github.com/GabrielAlvesGit/BancodeDadosI-IFSP/assets/102634725/af404d35-d5e2-47d3-ad45-4ef3422f446b)
 
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+ Aula aula31out2023
+```
+CREATE DATABASE aula31out2023
+USE aula31out2023
+
+create table tbl_editora(
+id_editora int,
+nome_editora varchar(50),
+primary key(id_editora))
+
+insert into tbl_editora
+values (1,'ABC'), (2,'CEU AZUL'),(3,'FONTE')
+
+CREATE TABLE TBL_AUTOR(
+id_autor int,
+nome_autor varchar(50),
+id_editora int,
+primary key(id_autor),
+foreign key(id_editora) references tbl_editora(id_editora))
+
+insert into tbl_autor
+values (11,'Bill Gates',1),(22,'Steve Jobs',1),(33,'ELMASRI, Ramez',2)
+
+CREATE TABLE tbl_livro (
+id_livro int,
+nome_livro varchar(100),
+valor_livro decimal(10,2),
+id_editora int,
+id_autor int,
+primary key(id_livro),
+foreign key(id_editora) references tbl_editora(id_editora),
+foreign key(id_autor) references tbl_autor(id_autor))
+
+insert into tbl_livro
+values (111,'Como Ser Milionario',120.00,1,11),(222,'New Era',85.00,2,22),
+(333,'Banco de Dados', 98.00,3,33),(444,'Modelagem de Dados', 65.00,3,33)
+
+SELECT * FROM tbl_editora
+
+
+-- Criar uma visão que retorne os nomes dos livros e seus respecticos autores
+--GO
+--CREATE VIEW viewlivros AS
+--SELECT tbl_livro L,
+--INNER JOIN nomeAutor ON tbl_autor.
+GO
+CREATE VIEW viewLivroAutores AS
+SELECT L.nome_livro, A.nome_autor
+FROM tbl_livro AS L
+INNER JOIN TBL_AUTOR as A 
+ON L.id_autor = A.id_autor
+
+SELECT * FROM viewLivroAutores
+ORDER BY nome_livro
+
+-- Alterar
+GO
+ALTER VIEW vwlivrosAutores AS
+SELECT L.nome_livro as Livro, A.nome_autor as Autor,
+L.valor_livro as Valor              
+FROM tbl_livro AS L
+INNER JOIN TBL_AUTOR as A
+ON L.id_autor = A.id_autor
+
+select Livro from vwlivrosAutores
+where valor > 90.00
+
+
+------ Complemento
+CREATE DATABASE bd_view
+USE bd_view
+
+CREATE TABLE produto(
+    id int PRIMARY KEY IDENTITY (1,1),
+    nome VARCHAR (50) NOT NULL,
+    fabricante VARCHAR (50) NOT NULL,
+    quantidade INT,
+    vlunitario decimal (10,2),
+    tipo VARCHAR (50) NOT NULL
+)
+
+
+INSERT INTO produto
+VALUES
+    ('Playstation 3','Sony',100,1999,'Console'),
+    ('Core 2 Duo 4GB Ram 500GB HD','Dell',200,1899,'Notebook'),
+    ('Xbox 360 120GB','Microsoft',350,1299,'Console'),
+    ('GT-I6220 Quad Band','Samsung',300,499,'Celular'),
+    ('iPhone 4 32GB','Apple',50,1499,'Smartphone'),
+    ('Playstation 2','Sony',100,399,'Console'),
+    ('Sofá Estofado','Coréia',200,499,'Sofá'),
+    ('Armário de Serviço','Aracaju',50,129,'Armário'),
+    ('Refrigerador 420L','CCE',200,1499,'Refrigerador'),
+    ('Wii 120GB','Nintendo',250,999,'Console')
+
+SELECT * FROM produto
+
+-- Criar uma view que retorna algumas colunas da tabela produtos
+CREATE VIEW vwProduto AS 
+SELECT id AS Código,
+Nome AS Produto, Fabricante, Quantidade,
+vlunitario AS 'Valor_Unitario',Tipo
+From produto
+
+SELECT * FROM vwProduto
+
+-- Alterando uma view
+GO
+ALTER VIEW vwProduto AS
+SELECT Id AS Código,
+    Nome AS Produto,
+    Fabricante,
+    Quantidade,
+    VlUnitario AS [ValorUnitario],
+    Tipo
+FROM produto
+WHERE VlUnitario > 499.00
+
+SELECT * FROM vwProduto
+
+use pubs
+SELECT * FROM employee
+
+GO
+CREATE VIEW viewEmpregados AS
+SELECT
+FName as Nome,
+LName as Sobrenome,
+FName + ' ' + LName as NomeCompleto
+FROM employee
+
+
+SELECT * FROM viewEmpregados
+ORDER BY NomeCompleto
+
+
+-- Drop a tabela
+DROP VIEW viewEmpregados
+```
+
+
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 ```
 ```
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
